@@ -7,12 +7,12 @@ from function_approximation import approximation
 from hurmonic import hurmonic
 
 # обчислення функції
-show_func()
+# show_func()
 
 # межі
 li = 0
 lf = np.pi
-n = 10
+n = 30
 
 # коефіцієнти фур'є
 l = (lf - li)/2
@@ -27,8 +27,7 @@ for i in range(n + 1):
     else:
         ak[i] = 1/l*integrate.quad(lambda x: function(x)*np.cos((i*x)), li, lf)[0]
         bk[i - 1] = 1/l* integrate.quad(lambda x: function(x)*np.sin((i*x)), li, lf)[0]
-    
-print(ak)    
+       
 print('\n\nКоефіцієнти Фур^є\n')
 print("a0 = {:.4f}\n".format(ak[0]))
 
@@ -36,11 +35,10 @@ for i in range(n):
    print("a{} = {:.4f},    b{} = {:.4f}".format(i + 1, ak[i + 1], i + 1, bk[i])) 
 print('-------------------------------------------\n')
 
-x = np.arange(0, np.pi, 0.01)
 
 #будує графік оригінальної функції та графіки наближення
 def plot_approximation(ak, bk, n):
-    
+    x = np.arange(-np.pi, np.pi, 0.001)
     y = function(x)
     s = np.zeros_like(x)
 
@@ -54,17 +52,19 @@ def plot_approximation(ak, bk, n):
 
 plot_approximation(ak, bk, n)    
 
-fourier = approximation(a0, ak, ak, n, 1)
+x = 0.01
+
+fourier = approximation(a0, ak, ak, n, x)
 
 f_N = round(fourier, 10)
-print('\nНаближене значення функції:')
-print('f = ' + str(f_N) + '\n')
-
+print('\nНаближене значення функції в точці склеювання x =' + str(x))
+print('fn = ' + str(f_N) + '\n')
 #графіки гармонік
-hurmonic(ak, bk, 10)
+hurmonic(ak, bk, n)
+# print('f = ' + str(function(x)))
 
 #відносна похибка
-delta = abs(f_N)
+delta = abs(function(x)-f_N)/abs(function(x))
 print('\nВідносна похибка: ' + str(delta) + '\n')
 
 
