@@ -46,7 +46,7 @@ def generate_complex_vector(N, a, b):
 
 def generate_vector(N, a, b):
     result = []
-    for i in range(N-1):
+    for i in range(N):
         x = random.randint(a, b)
         result.append(x)
     return result
@@ -79,7 +79,7 @@ def amplitudes_phases_spectrum(ck):
 
     return amp, phase
 
-N = 21
+N = 210
 # x = generate_complex_vector(N, -6, 6)
 x = generate_vector(N, -10, 10)
 print("\n\nВектор х:\n", x)
